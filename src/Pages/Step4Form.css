@@ -1,0 +1,172 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .close {
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .popup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .popup-body input {
+    width: 100%;
+  }
+  
+  .popup-body .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 30px 30px;
+  }
+  .popup {
+    /* Add popup styles here */
+  }
+  
+  .popup-content {
+    /* Add popup content styles here */
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+  }
+  
+  .company-name {
+    font-weight: bold;
+  }
+  
+  .close {
+    cursor: pointer;
+  }
+  
+  .popup-body {
+    /* Add popup body styles here */
+  }
+  
+  .button-group {
+    /* Add button group styles here */
+  }
+  
+.popup .navbar {
+    background-color: #0c65d9; /* Set the desired background color */
+    color: #eceeee; /* Set the desired text color */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .popup .navbar .company-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .popup .navbar .close {
+    cursor: pointer;
+  }
+  
+.popup .popup-body {
+    margin-top: 20px; /* Add the desired top margin */
+  }
+  
+  .popup .popup-body input[type="text"] {
+    margin-bottom: 10px; /* Add the desired bottom margin for textboxes */
+  }
+  
+
+
+.popup .popup-header {
+    position: relative;
+  }
+  
+  .popup .popup-header h3 {
+    margin: 0;
+  }
+  
+  .popup .popup-header .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  
+.popup-body .button-group button.add-button {
+    border-width: 20px;
+  }
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .add-button {
+    width: 120px;
+    height: 40px;
+    background-color: #0c65d9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .close-button {
+    width: 120px;
+    height: 40px;
+    background-color: #fff;
+    color: #0c65d9;
+    border: 1px solid #0c65d9;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .step4-form {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .step4-form input,
+  .step4-form button {
+    margin: 50px;
+  }
+  .text-field {
+    height: 60px; /* Adjust the height to increase the text field height */
+  }
+  
+  .button {
+    height: 55px; /* Adjust the height to increase the button height */
+  }
+  .card-container {
+    margin: 30px; /* Adjust the margin value to add the desired spacing */
+  }

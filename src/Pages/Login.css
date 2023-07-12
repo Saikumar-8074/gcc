@@ -1,0 +1,81 @@
+.login_body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: url(../images/bg.jpg) no-repeat;
+}
+.form-box {
+  margin: 0 0 0 0;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+}
+.form-box_in {
+  width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+  min-height: 450px;
+}
+.form_left {
+  height: calc(100vh - 200px);
+  background-color: #ff8208;
+  min-height: 100%;
+  border-radius: 10px 0 0 10px;
+  width: 100%;
+}
+.form_right {
+  width: 300px;
+  border-radius: 0px 10px 10px 0;
+  height: calc(100vh - 200px);
+  justify-content: center;
+  display: block;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+.login_transbg1 {
+  background: url(../images/circle_bg.png) no-repeat center center;
+  width: 20%;
+  position: absolute;
+  top: 166px;
+  background-size: 100% auto;
+  min-height: 453px;
+  left: 191px;
+}
+.login_transbg2 {
+  background: url(../images/circle2_bg.png) no-repeat center center;
+  width: 30%;
+  position: absolute;
+  top: -30px;
+  background-size: 100% auto;
+  height: 100%;
+  right: 120px;
+}
+.cartoon_img {
+  padding-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+}
+.cartoon_img img {
+  width: 21rem;
+}
+.logo_img {
+  width: 14rem;
+  padding-bottom: 2rem;
+  margin: 0 auto;
+}
+.logo_img img {
+  width: 100%;
+  height: auto;
+}

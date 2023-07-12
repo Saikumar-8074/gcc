@@ -1,0 +1,30 @@
+.table-header {
+  background-color: #e0e0e0;
+}
+.MuiTableCell-root {
+  padding: 6px !important;
+ 
+}
+
+.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
+  margin-top: -11px;
+}
+
+.css-levciy-MuiTablePagination-displayedRows {
+  margin-top: 1px;
+
+    margin-left: 1000px;
+  
+}
+
+.css-zylse7-MuiButtonBase-root-MuiIconButton-root.Mui-disabled {
+  margin-bottom: 10px;
+}
+.table-header-cell {
+  min-width: auto !important;
+  font-weight: bold !important;
+  
+}
+.table-head {
+  height: 45px;
+}
