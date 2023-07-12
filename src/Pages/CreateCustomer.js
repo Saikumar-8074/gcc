@@ -640,6 +640,7 @@ const Step3Form = () => {
 //step4 Form components
 
 
+
 const Step4Form = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showBranchPopup, setShowBranchPopup] = useState(false);
@@ -650,6 +651,7 @@ const Step4Form = () => {
   });
   const [customerDetails, setCustomerDetails] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [selectedCustomerIndex, setSelectedCustomerIndex] = useState(null);
 
   const handleCompanyDetailsChange = (event) => {
     const { name, value } = event.target;
@@ -671,7 +673,8 @@ const Step4Form = () => {
   };
 
   const handleAddBranch = (index) => {
-    // Implement the functionality to add branches for the selected customer
+    setSelectedCustomerIndex(index);
+    setShowBranchPopup(true);
   };
 
   const handleBranchDetailsChange = (event) => {
@@ -704,6 +707,7 @@ const Step4Form = () => {
   const handleEditCustomer = (index) => {
     const customerToEdit = customerDetails[index];
     setCompanyDetails(customerToEdit);
+    setSelectedCustomerIndex(index);
     setShowPopup(true);
   };
 
@@ -902,7 +906,6 @@ const Step4Form = () => {
     </div>
   );
 };
-
 
 
 
