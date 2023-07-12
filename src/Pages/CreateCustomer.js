@@ -702,8 +702,9 @@ const Step4Form = () => {
   };
 
   const handleEditCustomer = (index) => {
-    // Implement the edit functionality according to your requirements
-    // For example, you can set the company details in the state and open a popup form for editing
+    const customerToEdit = customerDetails[index];
+    setCompanyDetails(customerToEdit);
+    setShowPopup(true);
   };
 
   return (
@@ -901,6 +902,7 @@ const Step4Form = () => {
     </div>
   );
 };
+
 
 
 
