@@ -25,6 +25,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import "../Pages/UserList.css";
 import { InputAdornment } from "@mui/material";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(3),
@@ -148,6 +149,7 @@ export default function UserList() {
   const handleCloseUnlock = () => {
     setOpenUnlock(false);
   };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -156,6 +158,12 @@ export default function UserList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const filteredTableData = searchText
+    ? tableData.filter((row) =>
+        row.userName.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : tableData;
 
   return (
     <>
@@ -193,10 +201,11 @@ export default function UserList() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {/* <SearchOutlinedIcon /> */}
+                       <SearchOutlinedIcon /> 
                     </InputAdornment>
                   ),
                 }}
+                onChange={(event) => setSearchText(event.target.value)}
               />
               <Link
                 to="/users/createuser"
@@ -208,8 +217,8 @@ export default function UserList() {
           </>
         </div>
       </div>
-      <Paper style={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer style={{ maxHeight: "440px"  }}>
+      <Paper style={{ width: "99%", overflow: "hidden" }}>
+        <TableContainer style={{ maxHeight: "440px" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead className="table-head">
               <TableRow>
@@ -227,147 +236,171 @@ export default function UserList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell className="MuiTableCell-root">
-                    {row.userName}
-                  </TableCell>
-                  <TableCell className="MuiTableCell-root">
-                    {row.customerName}
-                  </TableCell>
-                  <TableCell className="MuiTableCell-root">
-                    {row.displayName}
-                  </TableCell>
-                  <TableCell className="MuiTableCell-root">
-                    {row.createdDate}
-                  </TableCell>
-                  <TableCell className="MuiTableCell-root">
-                    {row.lastLogin}
-                  </TableCell>
-                  <TableCell>
-                    <div>
-                      <Link to="/users/createuser">
-                        <button className="btn btn-outline-danger btn-sm">
-                          Update
-                        </button>
-                      </Link>
-
-                      <span style={{ borderLeft: "2px solid gray", padding: "7px", marginLeft: "12px" }}></span>
-                      <button
-                        onClick={() => handleOpen(row.userName)}
-                        className="btn btn-outline-danger btn-sm me-1"
-                      >
-                        Deactivate
-                      </button>
-                      <BootstrapDialog
-                        onClose={handleClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={open}
-                      >
-                        <BootstrapDialogTitle
-                          id="customized-dialog-title"
-                          onClose={handleClose}
-                          style={{ color: "#278bce" }}
-                        >
-                          <h5 style={{ fontFamily: "cursive" }}>
-                            Deactivated User
-                          </h5>
-                        </BootstrapDialogTitle>
-                        <DialogContent dividers>
-                          <Typography gutterBottom>
-                            <h6 style={{ fontFamily: "cursive" }}>
-                              Do you want to Deactivate the &nbsp;
-                              <strong>{selectedUserName}</strong>
-                            </h6>
-                          </Typography>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
+              {filteredTableData.length > 0 ? (
+                filteredTableData
+                  .slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                  .map((row) => (
+                    <TableRow key={row.id}>
+                      <TableCell className="MuiTableCell-root">
+                        {row.userName}
+                      </TableCell>
+                      <TableCell className="MuiTableCell-root">
+                        {row.customerName}
+                      </TableCell>
+                      <TableCell className="MuiTableCell-root">
+                        {row.displayName}
+                      </TableCell>
+                      <TableCell className="MuiTableCell-root">
+                        {row.createdDate}
+                      </TableCell>
+                      <TableCell className="MuiTableCell-root">
+                        {row.lastLogin}
+                      </TableCell>
+                      <TableCell>
+                        <div>
+                          <Link to="/users/createuser">
+                            <button className="btn btn-outline-danger btn-sm">
+                              Update
+                            </button>
+                          </Link>
+                          <span
                             style={{
-                              backgroundColor: "#f2880b",
-                              color: "#fff",
-                              fontFamily: "cursive",
+                              borderLeft: "2px solid gray",
+                              padding: "7px",
+                              marginLeft: "12px",
                             }}
-                            autoFocus
-                            onClick={handleClose}
+                          ></span>
+                          <button
+                            onClick={() => handleOpen(row.userName)}
+                            className="btn btn-outline-danger btn-sm me-1"
                           >
-                            Cancel
-                          </Button>
-                          <Button
+                            Deactivate
+                          </button>
+                          <BootstrapDialog
+                            onClose={handleClose}
+                            aria-labelledby="customized-dialog-title"
+                            open={open}
+                          >
+                            <BootstrapDialogTitle
+                              id="customized-dialog-title"
+                              onClose={handleClose}
+                              style={{ color: "#278bce" }}
+                            >
+                              <h5 style={{ fontFamily: "cursive" }}>
+                                Deactivated User
+                              </h5>
+                            </BootstrapDialogTitle>
+                            <DialogContent dividers>
+                              <Typography gutterBottom>
+                                <h6 style={{ fontFamily: "cursive" }}>
+                                  Do you want to Deactivate the &nbsp;
+                                  <strong>{selectedUserName}</strong>
+                                </h6>
+                              </Typography>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button
+                                style={{
+                                  backgroundColor: "#f2880b",
+                                  color: "#fff",
+                                  fontFamily: "cursive",
+                                }}
+                                autoFocus
+                                onClick={handleClose}
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                style={{
+                                  backgroundColor: "#f2880b",
+                                  color: "#fff",
+                                  fontFamily: "cursive",
+                                }}
+                                autoFocus
+                                onClick={handleClose}
+                              >
+                                Save
+                              </Button>
+                            </DialogActions>
+                          </BootstrapDialog>
+                          <span
                             style={{
-                              backgroundColor: "#f2880b",
-                              color: "#fff",
-                              fontFamily: "cursive",
+                              borderLeft: "2px solid gray",
+                              padding: "7px",
+                              marginLeft: "12px",
                             }}
-                            autoFocus
-                            onClick={handleClose}
+                          ></span>
+                          <button
+                            onClick={() => handleUnlockOpen(row.userName)}
+                            className="btn btn-outline-danger btn-sm me-2"
                           >
-                            Save
-                          </Button>
-                        </DialogActions>
-                      </BootstrapDialog>
-                      <span
-                        style={{
-                          borderLeft: "2px solid gray",
-                          padding: "7px",
-                          marginLeft: "12px",
-                        }}
-                      ></span>
-                      <button
-                        onClick={() => handleUnlockOpen(row.userName)}
-                        className="btn btn-outline-danger btn-sm me-2"
-                      >
-                        Unlock
-                      </button>
-                      <BootstrapDialog
-                        onClose={handleCloseUnlock}
-                        aria-labelledby="customized-dialog-title"
-                        open={openUnlock}
-                      >
-                        <BootstrapDialogTitle
-                          id="customized-dialog-title"
-                          onClose={handleCloseUnlock}
-                          style={{ color: "#278bce" }}
-                        >
-                          <h5 style={{ fontFamily: "cursive" }}>Unlock User</h5>
-                        </BootstrapDialogTitle>
-                        <DialogContent dividers>
-                          <Typography gutterBottom>
-                            <h6 style={{ fontFamily: "cursive" }}>
-                              Do you want to Unlock the &nbsp;
-                              <strong>{selectedUnlockUserName}</strong>
-                            </h6>
-                          </Typography>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
-                            style={{
-                              backgroundColor: "#f2880b",
-                              color: "#fff",
-                              fontFamily: "cursive",
-                            }}
-                            autoFocus
-                            onClick={handleCloseUnlock}
+                            Unlock
+                          </button>
+                          <BootstrapDialog
+                            onClose={handleCloseUnlock}
+                            aria-labelledby="customized-dialog-title"
+                            open={openUnlock}
                           >
-                            Cancel
-                          </Button>
-                          <Button
-                            style={{
-                              backgroundColor: "#f2880b",
-                              color: "#fff",
-                              fontFamily: "cursive",
-                            }}
-                            autoFocus
-                            onClick={handleCloseUnlock}
-                          >
-                            Save
-                          </Button>
-                        </DialogActions>
-                      </BootstrapDialog>
-                    </div>
+                            <BootstrapDialogTitle
+                              id="customized-dialog-title"
+                              onClose={handleCloseUnlock}
+                              style={{ color: "#278bce" }}
+                            >
+                              <h5 style={{ fontFamily: "cursive" }}>
+                                Unlock User
+                              </h5>
+                            </BootstrapDialogTitle>
+                            <DialogContent dividers>
+                              <Typography gutterBottom>
+                                <h6 style={{ fontFamily: "cursive" }}>
+                                  Do you want to Unlock the &nbsp;
+                                  <strong>{selectedUnlockUserName}</strong>
+                                </h6>
+                              </Typography>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button
+                                style={{
+                                  backgroundColor: "#f2880b",
+                                  color: "#fff",
+                                  fontFamily: "cursive",
+                                }}
+                                autoFocus
+                                onClick={handleCloseUnlock}
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                style={{
+                                  backgroundColor: "#f2880b",
+                                  color: "#fff",
+                                  fontFamily: "cursive",
+                                }}
+                                autoFocus
+                                onClick={handleCloseUnlock}
+                              >
+                                Save
+                              </Button>
+                            </DialogActions>
+                          </BootstrapDialog>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    align="center"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    No data to display
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -376,7 +409,7 @@ export default function UserList() {
           className="css-16c50h-MuiInputBase-root-MuiTablePagination-select css-levciy-MuiTablePagination-displayedRows  "
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={tableData.length}
+          count={filteredTableData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

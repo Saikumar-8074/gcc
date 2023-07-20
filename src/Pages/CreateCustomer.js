@@ -93,10 +93,10 @@ const CreateCustomer = () => {
       </div>
       <Card
         sx={{
-          width: "88%",
-          marginLeft: "50px",
-          marginTop: "40px",
-          height: "450px",
+          width: "102%",
+          marginLeft: "-15px",
+          marginTop: "20px",
+          height: "600px",
         }}
       >
         <CardContent
@@ -444,7 +444,7 @@ const Step2Form = () => {
   };
 
   return (
-    <div>
+    <div >
       <Card className="mx-2 mt-4" sx={{ width: "65%" }}>
         <CardContent>
           <div className="form-row">
@@ -468,25 +468,40 @@ const Step2Form = () => {
         </CardContent>
       </Card>
       <Typography variant="body1" sx={{ mt: 2 }}></Typography>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "flex-start",
+        }}
+      >
         {products.map((product, index) => (
           <Button
             key={index}
             variant="contained"
             sx={{
-              mt: 2,
               backgroundColor: "white",
               color: "black",
               textTransform: "none",
-              marginRight: 2,
-              marginBottom: 2,
-              width: '30.33%', // Adjusted this property
+              margin: "0.5rem",
+              width: "calc(33.33% - 1rem)",
+              minWidth: "100px",
+              maxWidth: "150px",
+              "&:hover": {
+                backgroundColor: "white",
+              },
             }}
           >
             {product}
             <IconButton
               size="small"
-              sx={{ color: "white" }}
+              sx={{
+                color: "black",
+                marginLeft: "auto",
+                "&:hover": {
+                  color: "red",
+                },
+              }}
               onClick={() => handleRemoveProduct(index)}
             >
               <CloseIcon />
@@ -498,9 +513,8 @@ const Step2Form = () => {
   );
 };
 
-
-
 // Step 3 form component
+
 
 
 
@@ -527,10 +541,11 @@ const Step3Form = () => {
     <div>
       <Card className="mx-2 mt-4" sx={{ width: "60%" }}>
         <CardContent>
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "33.5ch" },
+          <form
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
             noValidate
             autoComplete="off"
@@ -547,11 +562,11 @@ const Step3Form = () => {
             <Button
               variant="contained"
               onClick={handleAddRole}
-              sx={{ height: "55.5px" }}
+              sx={{ height: "55.5px", marginLeft: "1rem" }}
             >
               Add Role
             </Button>
-          </Box>
+          </form>
         </CardContent>
       </Card>
 
@@ -616,16 +631,27 @@ const Step3Form = () => {
                     color: "black",
                     textTransform: "none",
                     marginRight: 2,
+                    "&:hover": {
+                      backgroundColor: "white",
+                    },
                   }}
                 >
-                  {role}
-                  <IconButton
-                    size="small"
-                    sx={{ color: "white" }}
-                    onClick={() => handleRemoveRole(index)}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    <CloseIcon fontSize="small" />
-                  </IconButton>
+                    <span>{role}</span>
+                    <IconButton
+                      size="small"
+                      sx={{ color: "black" }}
+                      onClick={() => handleRemoveRole(index)}
+                    >
+                      <CloseIcon fontSize="small" sx={{ color: "red" }} />
+                    </IconButton>
+                  </div>
                 </Button>
               ))}
             </td>
@@ -636,9 +662,7 @@ const Step3Form = () => {
   );
 };
 
-
 //step4 Form components
-
 
 
 const Step4Form = () => {
@@ -709,6 +733,21 @@ const Step4Form = () => {
     setCompanyDetails(customerToEdit);
     setSelectedCustomerIndex(index);
     setShowPopup(true);
+  };
+
+  const handleDeleteBranch = (index) => {
+    setBranches((prevBranches) => {
+      const updatedBranches = [...prevBranches];
+      updatedBranches.splice(index, 1);
+      return updatedBranches;
+    });
+  };
+
+  const handleEditBranch = (index) => {
+    const branchToEdit = branches[index];
+    setCompanyDetails(branchToEdit);
+    setSelectedCustomerIndex(index);
+    setShowBranchPopup(true);
   };
 
   return (
@@ -829,7 +868,7 @@ const Step4Form = () => {
                 label="Products"
                 type="text"
                 name="products"
-                value={companyDetails.address}
+                value={companyDetails.products}
                 onChange={handleBranchDetailsChange}
                 placeholder="Products"
                 sx={{ marginBottom: '10px' }}
@@ -868,40 +907,68 @@ const Step4Form = () => {
           </TableHead>
           <TableBody>
             {customerDetails.map((customer, index) => (
-              <TableRow key={index}>
-                <TableCell>{customer.name}</TableCell>
-                <TableCell>{customer.description}</TableCell>
-                <TableCell>{customer.address}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    onClick={() => handleAddBranch(index)}
-                    className="add-branch-button"
-                  >
-                    Add Branch
-                  </Button>
-                  <IconButton
-                    aria-label="Delete"
-                    onClick={() => handleDeleteCustomer(index)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Edit"
-                    onClick={() => handleEditCustomer(index)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
+              <React.Fragment key={index}>
+                <TableRow>
+                  <TableCell>{customer.name}</TableCell>
+                  <TableCell>{customer.description}</TableCell>
+                  <TableCell>{customer.address}</TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      onClick={() => handleAddBranch(index)}
+                      className="add-branch-button"
+                    >
+                      Add Branch
+                    </Button>
+                    <IconButton
+                      aria-label="Delete"
+                      onClick={() => handleDeleteCustomer(index)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="Edit"
+                      onClick={() => handleEditCustomer(index)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                {branches.map((branch, idx) =>
+                  idx === index ? (
+                    <TableRow key={idx}>
+                      <TableCell colSpan={4}>
+                        <div className="branch-item">
+                          <div>
+                            <p>
+                              {branch.name} - Branch | Description: {branch.description} | Products: {branch.products}
+                            </p>
+                          </div>
+                          <div>
+                            <IconButton
+                              aria-label="Edit"
+                              onClick={() => handleEditBranch(idx)}
+                              className="edit-branch-icon"
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="Delete"
+                              onClick={() => handleDeleteBranch(idx)}
+                              className="delete-branch-icon"
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ) : null
+                )}
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>
-      </div>
-      <div className="branch-details">
-        {branches.map((branch, index) => (
-          <p key={index}>{branch.name} - Branch</p>
-        ))}
       </div>
     </div>
   );

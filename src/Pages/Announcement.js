@@ -38,7 +38,6 @@ const columns = [
     align: "center",
     // minWidth: 170
   },
-
   {
     id: "fromDate",
     label: "From Date",
@@ -148,11 +147,10 @@ export default function Status() {
     setPage(0);
   };
   const filteredRows = searchText
-  ? rows.filter((row) =>
-      row.title.toLowerCase().includes(searchText.toLowerCase())
-    )
-  : rows;
-
+    ? rows.filter((row) =>
+        row.title.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : rows;
 
   return (
     <div>
@@ -197,7 +195,8 @@ export default function Status() {
                   id="title"
                   name="title"
                   size="small"
-                  label="Title" required
+                  label="Title"
+                  required
                 />
               </FormControl>
             </Grid>
@@ -239,15 +238,15 @@ export default function Status() {
                 variant="standard"
                 sx={{ width: 500, marginTop: "20px", height: "20px" }}
               >
-            
                 <TextField
-                 label=" Announcements Descriptions" required
-                        
-                        
+                  label=" Announcements Descriptions"
+                  required
                   multiline
                   rows={1}
                   // value={description}
-                  onChange={(event) => setSelectedValue(event.target.value)}
+                  onChange={(event) =>
+                    setSelectedValue(event.target.value)
+                  }
                   variant="outlined"
                   size="small"
                   fullWidth
@@ -277,7 +276,6 @@ export default function Status() {
           <Grid item>
             <Grid item sx={{ margin: "20px" }}>
               <div style={{ float: "right", marginBottom: "30px" }}>
-              {filteredRows.length > 0 && ( 
                 <TextField
                   label="Search"
                   value={searchText}
@@ -287,16 +285,15 @@ export default function Status() {
                   sx={{ marginRight: "10px" }}
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment>
-                        <IconButton>
-                          {/* <SearchIcon /> */}
+                      <InputAdornment position="end">
+                        <IconButton edge="end">
+                          <SearchIcon />
                         </IconButton>
                       </InputAdornment>
                     ),
                   }}
                 />
-              )}
-                <button
+                  <button
                   className="btn btn-outline-danger"
                   style={{ marginRight: "10px" }}
                 >
@@ -333,38 +330,55 @@ export default function Status() {
               </TableHead>
 
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.code}
-                        sx={{ alignItems: "center" }}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
+                {filteredRows.length > 0 ? (
+                  filteredRows
+                    .slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                          sx={{ alignItems: "center" }}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      align="center"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      No data to display
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
-          {/* {rows.length == 0 ? <div style={{ textAlign: "center", color: "red", margin: "20px" }}>There is no data to display</div> : ''} */}
           <TablePagination
             rowsPerPageOptions={[5, 10, 15]}
             component="div"
-            count={rows.length}
+            count={filteredRows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}

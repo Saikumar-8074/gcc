@@ -266,9 +266,11 @@ import TableRow from "@mui/material/TableRow";
 import { Link } from "react-router-dom";
 import CustomerDeactivate from "../components/CustomerDeactivate";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import SearchIcon from "@mui/icons-material/Search";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { InputAdornment } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+
 
 const columns = [
   { id: "companyName", label: "Company Name", minWidth: 170 },
@@ -354,7 +356,6 @@ const rows = [
     "Admin",
     <CustomerDeactivate />
   ),
-
   createData("Apple", "Apple", "02/08/2021", "Admin", <CustomerDeactivate />),
   createData("Banner", "Banner", "21/12/2021", "Admin", <CustomerDeactivate />),
   createData("Gemini", "Gemini", "21/08/2011", "Admin", <CustomerDeactivate />),
@@ -377,6 +378,10 @@ export default function Customer() {
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
+
+  const filteredRows = rows.filter((row) =>
+    row.companyName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <>
@@ -411,15 +416,18 @@ export default function Customer() {
             variant="outlined"
             size="small"
             InputProps={{
-              startAdornment: (
-                <endAdornment>
-                  <SearchIcon />
-                </endAdornment>
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchOutlinedIcon />
+                </InputAdornment>
               ),
             }}
+
           />
           <Link to="/users/createcustomer" style={{ marginLeft: "10px" }}>
-            <button className="btn btn-outline-danger ">Create Customer</button>
+            <button className="btn btn-outline-danger ">
+              Create Customer
+            </button>
           </Link>
         </div>
       </div>
@@ -445,33 +453,45 @@ export default function Customer() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                    >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell
-                            key={column.id}
-                            align={column.align}
-                            sx={{ py: 0.5 }}
-                          >
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+              {filteredRows.length > 0 ? (
+                filteredRows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.code}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              sx={{ py: 0.5 }}
+                            >
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    align="center"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    No data to display
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -479,7 +499,7 @@ export default function Customer() {
           className="css-16c50h-MuiInputBase-root-MuiTablePagination-select css-levciy-MuiTablePagination-displayedRows  "
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

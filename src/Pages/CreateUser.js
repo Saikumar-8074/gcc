@@ -231,10 +231,10 @@ export default function CreateUser() {
       </div>
       <Card
         sx={{
-          width: "100%",
-          marginLeft: "10px",
-          marginTop: "35px",
-          height: "45 0px",
+          width: "102%",
+          marginLeft: "-15px",
+          marginTop: "30px",
+          height: "600px",
           textAlign: "left",
         }}
       >

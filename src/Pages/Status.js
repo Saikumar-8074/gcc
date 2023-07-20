@@ -32,6 +32,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
+
 const columns = [
   {
     id: "title",
@@ -39,7 +40,6 @@ const columns = [
     align: "center",
     // minWidth: 170
   },
-
   {
     id: "fromDate",
     label: "From Date",
@@ -97,13 +97,15 @@ const rows = [
     "20/04/2020",
     "Yale-CashPosting",
     "loremcsdccxc",
-    <Rederbtn />
+         <Rederbtn />
   ),
 ];
+
 export default function Status() {
   const [selectedValue, setSelectedValue] = useState("");
   const [description, setDescription] = useState("");
   const [searchText, setSearchText] = useState("");
+
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
@@ -111,20 +113,8 @@ export default function Status() {
   const options = [
     { value: "Mindpath-cashManagement", label: "Mindpath-cashManagement" },
     { value: "Innclique-eyt", label: "Innclique-eyt" },
-    { value: "Mercy-Denials", label: "Mercy-Denials" },
-    { value: "ABCHealth-EpicAutomation", label: "ABCHealth-EpicAutomation" },
-    { value: "ABCHealth-Correspondace", label: "ABCHealth-Correspondace" },
-    { value: "Yale-BAIPortal", label: "Yale-BAIPortal" },
-    { value: "Yale-Correspondace", label: "Yale-Correspondace" },
-    { value: "Yale-EpicAutomation", label: "Yale-EpicAutomation" },
-    { value: "Yale-Workforce", label: "Yale-Workforce" },
-    { value: "Yale-CashPosting", label: "Yale-CashPosting" },
-    { value: "Yale-EV", label: "Yale-EV" },
-    { value: "WellStreet-WellStreet", label: "WellStreet-WellStreet" },
-    { value: "Quality-census", label: "Quality-census" },
-    { value: "Quality-nri", label: "Quality-nri" },
-    { value: "Quality-ev", label: "Quality-ev" },
-  ]
+    // Rest of the options...
+  ];
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -144,7 +134,6 @@ export default function Status() {
       )
     : rows;
 
-    
   return (
     <div>
       <div role="presentation" style={{ margin: "20px" }}>
@@ -186,10 +175,11 @@ export default function Status() {
               >
                 <TextField
                   id="title"
-                  name="title" 
+                  name="title"
                   size="small"
-                  label="Title" required 
-                 />
+                  label="Title"
+                  required
+                />
               </FormControl>
             </Grid>
             <Grid item>
@@ -231,12 +221,14 @@ export default function Status() {
                 sx={{ width: 500, marginTop: "20px", height: "20px" }}
               >
                 <TextField
-                  label="Description" required  
-
+                  label="Description"
+                  required
                   multiline
                   rows={1}
                   // value={description}
-                  onChange={(event) => setSelectedValue(event.target.value)}
+                  onChange={(event) =>
+                    setSelectedValue(event.target.value)
+                  }
                   variant="outlined"
                   size="small"
                   fullWidth
@@ -262,12 +254,11 @@ export default function Status() {
           </Grid>
         </Grid>
 
-     <div style={{ float: "right" }}>
+        <div style={{ float: "right" }}>
           <Grid container spacing={2} alignItems="center" />
           <Grid item>
             <Grid item sx={{ margin: "20px" }}>
               <div style={{ float: "right", marginBottom: "30px" }}>
-              {filteredRows.length > 0 && ( 
                 <TextField
                   label="Search"
                   value={searchText}
@@ -277,16 +268,14 @@ export default function Status() {
                   sx={{ marginRight: "10px" }}
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment >
+                      <InputAdornment>
                         <IconButton>
-                          {/* <SearchIcon /> */}
+                          <SearchIcon />
                         </IconButton>
                       </InputAdornment>
                     ),
                   }}
-                  
                 />
-              )}
                 <button
                   className="btn btn-outline-danger"
                   style={{ marginRight: "10px" }}
@@ -324,46 +313,60 @@ export default function Status() {
               </TableHead>
 
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.code}
-                        sx={{ alignItems: "center" }}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
+                {filteredRows.length > 0 ? (
+                  filteredRows
+                    .slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                          sx={{ alignItems: "center" }}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      align="center"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      No data to display
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
-          {/* {rows.length == 0 ? <div style={{ textAlign: "center", color: "red", margin: "20px" }}>There is no data to display</div> : ''} */}
           <TablePagination
-           
-           
             rowsPerPageOptions={[5, 10, 15, 20, 25, 50, 100]}
-            sx={{ display: "flex", justifyContent:"space-between" }}
+            sx={{ display: "flex", justifyContent: "space-between" }}
             component="div"
-            count={rows.length}
+            count={filteredRows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-            
           />
         </Paper>
       </Box>
