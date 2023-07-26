@@ -169,8 +169,11 @@ export default function MyProfile() {
                   <TextField
                     id="firstName"
                     name="firstName"
-                    label="First Name"  required  
-                    size="small"
+                    label={
+                      <span>
+                        First Name <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }                    size="small"
                   />
                 </FormControl>
               </Grid>
@@ -183,7 +186,11 @@ export default function MyProfile() {
                     id="lastName"
                     name="lastName"
                     size="small"
-                    label="Last Name"  required  
+                    label={
+                      <span>
+                        Last Name <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                   />
                 </FormControl>
               </Grid>
@@ -195,7 +202,11 @@ export default function MyProfile() {
                   <TextField
                     id="displayName"
                     name="displayName"
-                    label="Display Name" required  
+                    label={
+                      <span>
+                        Display Name <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                     size="small"
                   />
                 </FormControl>
@@ -208,7 +219,11 @@ export default function MyProfile() {
                   <TextField
                     id="email"
                     name="email"
-                    label="Email ID" required
+                    label={
+                      <span>
+                        Email Id <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                     size="small"
                   />
                 </FormControl>
@@ -221,7 +236,11 @@ export default function MyProfile() {
                   <TextField
                     id="workNumber"
                     name="workNumber"
-                    label="Work Number" required
+                    label={
+                      <span>
+                        Work Number <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                     size="small"
                   />
                 </FormControl>
@@ -267,7 +286,11 @@ export default function MyProfile() {
                     id="oldPassword"
                     name="oldPassword"
                     size="small"
-                    label="Old Password" required
+                    label={
+                      <span>
+                      Old Password <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                   />
                 </FormControl>
               </Grid>
@@ -277,7 +300,11 @@ export default function MyProfile() {
                     id="newPassword"
                     name="newPassword"
                     size="small"
-                    label="New Password" required
+                    label={
+                      <span>
+                        New Password <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                   />
                 </FormControl>
               </Grid>
@@ -290,7 +317,11 @@ export default function MyProfile() {
                     id="confirmNewPassword"
                     name="confirmNewPassword"
                     size="small"
-                    label="Confirm New Password" required
+                    label={
+                      <span>
+                        Confirm newPassword <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                   />
                 </FormControl>
               </Grid>
@@ -342,7 +373,11 @@ export default function MyProfile() {
                       <TextField
                         {...params}
                         id="securityQ1"
-                        label="Question Number 1" required
+                        label={
+                          <span>
+                            Question Number 1 
+                          </span>
+                        }
                       />
                     )}
                   />
@@ -350,7 +385,11 @@ export default function MyProfile() {
 
                 <FormControl variant="standard" sx={{ width: 500, m: 1 }}>
                   <TextField
-                    label="Answer"
+                    label={
+                      <span>
+                        Answer <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                     id="security1_answer"
                     size="small"
                   />
@@ -369,7 +408,11 @@ export default function MyProfile() {
                       <TextField
                         {...params}
                         id="securityQ2"
-                        label="Question Number 2" required
+                        label={
+                          <span>
+                            Question Number 2 
+                          </span>
+                        }
                       />
                     )}
                   />
@@ -377,7 +420,11 @@ export default function MyProfile() {
 
                 <FormControl variant="standard" sx={{ width: 500, m: 1 }}>
                   <TextField
-                    label="Answer"
+                    label={
+                      <span>
+                        Answer <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    }
                     id="security2_answer"
                     size="small"
                   />
@@ -397,7 +444,11 @@ export default function MyProfile() {
                       <TextField
                         {...params}
                         id="securityQ3"
-                        label="Question Number 3" required
+                        label={
+                          <span>
+                            Question Number 3  
+                          </span>
+                        }
                       />
                     )}
                   />
@@ -405,7 +456,11 @@ export default function MyProfile() {
 
                 <FormControl variant="standard" sx={{ width: 500, m: 1 }}>
                   <TextField
-                    label="Answer" 
+                  label={
+                    <span>
+                      Answer <span style={{ color: "#e60000" }}>*</span>
+                    </span>
+                  }
                     id="security3_answer"
                     size="small"
                   />

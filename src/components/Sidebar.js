@@ -17,6 +17,9 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LanIcon from "@mui/icons-material/Lan";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import LoginInfo from "./LoginInfo";
 import { useLocation } from "react-router-dom";
@@ -28,7 +31,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const SidebarItems = [
   {
@@ -61,8 +63,23 @@ const SidebarItems = [
     path: "/users/assign_ican",
     icon: <HowToRegIcon />,
   },
- 
 ];
+
+const AdditionalIcon = ({ open, setOpen }) => {
+  // Handle additional icon click event here
+  const handleClick = () => {
+    setOpen(!open); // Toggle the open state of the drawer
+  };
+
+  return (
+    <ListItemButton onClick={handleClick}>
+      <ListItemIcon>
+        {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+      </ListItemIcon>
+      <ListItemText primary={open ? "Close Sidebar" : "Open Sidebar"} />
+    </ListItemButton>
+  );
+};
 
 const drawerWidth = 220;
 
@@ -171,16 +188,16 @@ export default function Sidebar() {
                 onClick={handleDrawerOpen}
                 aria-label="open drawer"
               >
-                 <img
-                      src={logo}
-                      width="35px"
-                      height="44px"
-                      alt="logo"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    />
+                <img
+                  src={logo}
+                  width="35px"
+                  height="44px"
+                  alt="logo"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                />
               </span>
 
               <span
@@ -224,8 +241,7 @@ export default function Sidebar() {
               <span onClick={handleDrawerClose}>
                 {theme.direction === "ltr" ? (
                   <div style={{ display: "flex", cursor: "pointer" }}>
-                    
-                      <img
+                    <img
                       src={logo}
                       width="35px"
                       height="44px"
@@ -296,11 +312,13 @@ export default function Sidebar() {
               ))}
             </List>
             <Divider />
+            <AdditionalIcon open={open} setOpen={setOpen} />{" "}
+            {/* Display additional icon here */}
           </Drawer>
 
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />
-            {/* {ALL Roues Herer} */}
+            {/* {ALL Routes Here} */}
             <MainRoutes />
           </Box>
         </Box>

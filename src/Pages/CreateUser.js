@@ -318,7 +318,11 @@ const Step1Form = () => {
           value={selectedUserType}
           onChange={handleUserTypeChange}
           renderInput={(params) => (
-            <TextField {...params} label="Select User Type" />
+            <TextField {...params}  label={
+              <span>
+                Select User Type <span style={{ color: "#e60000" }}>*</span>
+              </span>
+            } />
           )}
         />
         <Autocomplete
@@ -328,7 +332,11 @@ const Step1Form = () => {
           options={companyNames}
           sx={{ width: 300, marginLeft: "14px" }}
           renderInput={(params) => (
-            <TextField {...params} label="Select Company" />
+            <TextField {...params}  label={
+              <span>
+                Select Company <span style={{ color: "#e60000" }}>*</span>
+              </span>
+            } />
           )}
         />
         {selectedUserType?.label === "User" && (
@@ -354,19 +362,31 @@ const Step1Form = () => {
       >
         <TextField
           id="outlined-basic"
-          label="First Name"
+          label={
+            <span>
+              First Name <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
         <TextField
           id="outlined-basic"
-          label="Middle Name"
+          label={
+            <span>
+              Middle Name <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
         <TextField
           id="outlined-basic"
-          label="Last Name"
+          label={
+            <span>
+              Last Name <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
@@ -382,19 +402,31 @@ const Step1Form = () => {
       >
         <TextField
           id="outlined-basic"
-          label="Email Id"
+          label={
+            <span>
+              Email Id <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
         <TextField
           id="outlined-basic"
-          label="Phone Number"
+          label={
+            <span>
+              Phone Number <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
         <TextField
           id="outlined-basic"
-          label="Address"
+          label={
+            <span>
+              Address <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
           size="small"
         />
@@ -426,7 +458,11 @@ const Step1Form = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Select country"
+              label={
+                <span>
+                  Select country <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password", // disable autocomplete and autofill
@@ -460,7 +496,11 @@ const Step1Form = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Select State"
+              label={
+                <span>
+                  Select State <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password", // disable autocomplete and autofill
@@ -478,7 +518,11 @@ const Step1Form = () => {
         >
           <TextField
             id="outlined-basic"
-            label="Email Id"
+            label={
+              <span>
+                Email Id <span style={{ color: "#e60000" }}>*</span>
+              </span>
+            }
             variant="outlined"
             size="small"
           />
@@ -643,7 +687,11 @@ const Step2Form = () => {
               options={companyNames}
               sx={{ width: 330 }}
               renderInput={(params) => (
-                <TextField {...params} label="Select Product" />
+                <TextField {...params}  label={
+                  <span>
+                    Select Product <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                } />
               )}
             />
             <Autocomplete
@@ -667,7 +715,11 @@ const Step2Form = () => {
               )}
               style={{ width: 330 }}
               renderInput={(params) => (
-                <TextField {...params} label="Roles" placeholder="Roles" />
+                <TextField {...params} label={
+                  <span>
+                    Role <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                } placeholder="Roles" />
               )}
             />
           </Box>

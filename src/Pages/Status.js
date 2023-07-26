@@ -177,8 +177,12 @@ export default function Status() {
                   id="title"
                   name="title"
                   size="small"
-                  label="Title"
-                  required
+                  label={
+                    <span>
+                      Title <span style={{ color: "#e60000" }}>*</span>
+                    </span>
+                  }
+                  
                 />
               </FormControl>
             </Grid>
@@ -210,7 +214,11 @@ export default function Status() {
                     </li>
                   )}
                   renderInput={(params) => (
-                    <TextField {...params} label="Audience" />
+                    <TextField {...params}  label={
+                      <span>
+                        Audience <span style={{ color: "#e60000" }}>*</span>
+                      </span>
+                    } />
                   )}
                 />
               </FormControl>
@@ -221,8 +229,12 @@ export default function Status() {
                 sx={{ width: 500, marginTop: "20px", height: "20px" }}
               >
                 <TextField
-                  label="Description"
-                  required
+                  label={
+                    <span>
+                      Description <span style={{ color: "#e60000" }}>*</span>
+                    </span>
+                  }
+                  
                   multiline
                   rows={1}
                   // value={description}

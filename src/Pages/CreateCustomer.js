@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Stepper,
@@ -11,7 +12,13 @@ import {
   Box,
   TextField,
   Autocomplete,
-  Checkbox,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PeopleIcon from "@mui/icons-material/People";
@@ -20,35 +27,51 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import BusinessIcon from "@mui/icons-material/Business";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link } from "react-router-dom";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  
-  IconButton,
-} from '@mui/material';
-
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import './Step4Form.css';
-import Modal from "@mui/material/Modal";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 const steps = [
   "Customer Creation",
   "Product Creation",
   "Role Creation",
   "Company Customer Creation",
 ];
+
 const icons = [
-  <PeopleIcon />,
-  <InventoryIcon />,
-  <EngineeringIcon />,
-  <BusinessIcon />,
+  <PeopleIcon fontSize="medium" />,
+  <InventoryIcon fontSize="medium"/>,
+  <EngineeringIcon fontSize="medium" />,
+  <BusinessIcon fontSize="medium"/>,
 ];
+
+
+// Custom StepIconComponent
+const QontoStepIcon = (props) => {
+  const { active, completed, icon } = props;
+  const activeColor = "	#f77f00";
+  const inactiveColor = "lightgrey";
+
+  return (
+    <div
+      style={{
+        width: 38,
+        height: 38,
+        borderRadius: "50%",
+        backgroundColor: active ? activeColor : inactiveColor,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {completed ? (
+        <CheckCircleIcon style={{ color: "white" }} />
+      ) : (
+        <>{icon}</>
+      )}
+    </div>
+  );
+};
 
 const CreateCustomer = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -60,7 +83,6 @@ const CreateCustomer = () => {
   const handleBack = () => {
     setActiveStep((prevStep) => prevStep - 1);
   };
-
   return (
     <>
       <div role="presentation">
@@ -100,36 +122,37 @@ const CreateCustomer = () => {
         }}
       >
         <CardContent
-          sx={{
-            fontSize: 14,
-            backgroundColor: "#f5f5f5",
-            height: "12vh",
-          }}
-          color="text.secondary"
-          gutterBottom
+        sx={{
+          fontSize: 14,
+          backgroundColor: "#f5f5f5",
+          height: "12vh",
+        }}
+        color="text.secondary"
+        gutterBottom
+      >
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          style={{ marginLeft: "-60px", width: "100%" }}
         >
-          <Stepper
-            activeStep={activeStep}
-            alternativeLabel
-            style={{ marginLeft: "-60px", width: "100%" }}
-          >
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel
-                  StepIconComponent={() =>
-                    activeStep > index ? (
-                      <CheckCircleIcon color="primary" />
-                    ) : (
-                      icons[index]
-                    )
-                  }
-                >
-                  {label}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </CardContent>
+          {steps.map((label, index) => (
+            <Step key={label} completed={activeStep > index}>
+              <StepLabel
+                StepIconComponent={() => (
+                  <QontoStepIcon
+                    active={activeStep === index}
+                    completed={activeStep > index}
+                    icon={icons[index]}
+                  />
+                )}
+              >
+                {label}
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </CardContent>
+
         <Divider sx={{ bgcolor: "secondary.light" }} />
 
         <div>
@@ -199,21 +222,33 @@ const Step1Form = () => {
       >
         <TextField
           id="outlined-basic"
-          label="Company Name"
+          label={
+            <span>
+              Company Name <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
         <TextField
           id="outlined-basic"
-          label="Description"
+          label={
+            <span>
+              Description <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
         <TextField
           id="outlined-basic"
-          label="Email ID"
+          label={
+            <span>
+              Email Id <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
       </Box>
       <Box
@@ -227,9 +262,13 @@ const Step1Form = () => {
       >
         <TextField
           id="outlined-basic"
-          label="Address"
+          label={
+            <span>
+              Address <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
         <Autocomplete
           id="country-select-demo"
@@ -256,12 +295,16 @@ const Step1Form = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Select country"
+              label={
+                <span>
+                  Select country <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password", // disable autocomplete and autofill
               }}
-              required
+              
             />
           )}
         />
@@ -290,12 +333,16 @@ const Step1Form = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Select State"
+              label={
+                <span>
+                  select country <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password", // disable autocomplete and autofill
               }}
-              required
+              
             />
           )}
         />
@@ -311,15 +358,23 @@ const Step1Form = () => {
       >
         <TextField
           id="outlined-basic"
-          label="Zip Code"
+          label={
+            <span>
+              Zip Code <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
         <TextField
           id="outlined-basic"
-          label="Phone Number"
+          label={
+            <span>
+              Phone Number <span style={{ color: "#e60000" }}>*</span>
+            </span>
+          }
           variant="outlined"
-          required
+          
         />
         <Button
           variant="outlined"
@@ -450,11 +505,15 @@ const Step2Form = () => {
           <div className="form-row">
             <TextField
               id="product"
-              label="Product"
+              label={
+                <span>
+                  Product <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               variant="outlined"
               value={product}
               onChange={handleProductChange}
-              required
+              
               inputProps={{ style: { width: "600px" } }}
             />
             <Button
@@ -552,11 +611,15 @@ const Step3Form = () => {
           >
             <TextField
               id="role"
-              label="Role"
+              label={
+                <span>
+                  Role <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               variant="outlined"
               value={newRole}
               onChange={handleRoleChange}
-              required
+              
               inputProps={{ style: { width: "700px" } }}
             />
             <Button
@@ -756,7 +819,11 @@ const Step4Form = () => {
         <Card sx={{ width: '65%' }}>
           <CardContent>
             <TextField
-              label="Company Name"
+               label={
+                <span>
+                  Company Name <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
               type="text"
               value="Cognitive Health IT"
               disabled
@@ -777,7 +844,7 @@ const Step4Form = () => {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <div className="navbar">
+            <div className="navbar" style={{ backgroundColor: "#e67300" }}>
               <div className="company-name">Cognitive Health IT</div>
               <span className="close" onClick={() => setShowPopup(false)}>
                 &times;
@@ -785,7 +852,11 @@ const Step4Form = () => {
             </div>
             <div className="popup-body">
               <TextField
-                label="Customer Name"
+                 label={
+                  <span>
+                    Costumer Name <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                }
                 type="text"
                 name="name"
                 value={companyDetails.name}
@@ -794,7 +865,11 @@ const Step4Form = () => {
                 sx={{ marginBottom: '10px' }}
               />
               <TextField
-                label="Description"
+               label={
+                <span>
+                  Description <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
                 type="text"
                 name="description"
                 value={companyDetails.description}
@@ -803,7 +878,11 @@ const Step4Form = () => {
                 sx={{ marginBottom: '10px' }}
               />
               <TextField
-                label="Address"
+               label={
+                <span>
+                  Address <span style={{ color: "#e60000" }}>*</span>
+                </span>
+              }
                 type="text"
                 name="address"
                 value={companyDetails.address}
@@ -836,7 +915,7 @@ const Step4Form = () => {
       {showBranchPopup && (
         <div className="popup">
           <div className="popup-content">
-            <div className="navbar">
+            <div className="navbar"  style={{ backgroundColor: "#e67300" }}>
               <div className="branch-name">Add Branch</div>
               <span
                 className="close"
@@ -847,7 +926,11 @@ const Step4Form = () => {
             </div>
             <div className="popup-body">
               <TextField
-                label="Branch Name"
+                 label={
+                  <span>
+                    Branch Name <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                }
                 type="text"
                 name="name"
                 value={companyDetails.name}
@@ -856,7 +939,11 @@ const Step4Form = () => {
                 sx={{ marginBottom: '10px' }}
               />
               <TextField
-                label="Description"
+                label={
+                  <span>
+                    Description <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                }
                 type="text"
                 name="description"
                 value={companyDetails.description}
@@ -865,7 +952,11 @@ const Step4Form = () => {
                 sx={{ marginBottom: '10px' }}
               />
               <TextField
-                label="Products"
+                 label={
+                  <span>
+                    Products <span style={{ color: "#e60000" }}>*</span>
+                  </span>
+                }
                 type="text"
                 name="products"
                 value={companyDetails.products}
